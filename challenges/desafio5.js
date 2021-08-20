@@ -6,10 +6,10 @@ const atoresFavoritos = [
   "George Clooney",
 ];
 db.movies.aggregate([
-  { $match: { 
+  { $match: {
     countries: { $eq: "USA" },
     "tomatoes.viewer.rating": { $gte: 3 },
-    cast: { $exists: true }
+    cast: { $exists: true },
   } },
   { $addFields: {
     num_favs: { $size: { $setIntersection: [atoresFavoritos, "$cast"] } },
