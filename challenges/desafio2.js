@@ -4,11 +4,11 @@ db.movies.aggregate([
   { $match: { rated: { $in: ["PG", "G"] } } },
   { $match: { languages: { $all: ["English", "Spanish"] } } },
   { $project: {
-      titulo: "$title",
-      avaliado: "$rated",
-      notaIMDB: "$imdb.rating",
-      votosIMDB: "$imdb.votes",
-      ano: "$year",
-      _id: 0,
-  }}
+    titulo: "$title",
+    avaliado: "$rated",
+    notaIMDB: "$imdb.rating",
+    votosIMDB: "$imdb.votes",
+    ano: "$year",
+    _id: 0,
+  } },
 ]);
