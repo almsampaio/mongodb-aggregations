@@ -5,7 +5,7 @@ db.movies.aggregate(
         title_split: {
           $split: ["$title", " "],
         },
-      }, 
+      },
     },
     {
       $match: {
