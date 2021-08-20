@@ -1,4 +1,4 @@
-db.movies.aggragate(
+db.movies.aggregate(
   [
     {
       $match: {
