@@ -1,8 +1,10 @@
 // Desafio 4
+// $expr para verificar a igualdade do split com o size
+// feita com ajuda do PR do Murilo
 db.movies.aggregate([
   {
     $match: {
-      $expr: { //$expr para verificar a igualdade do split com o size feita com ajuda do PR do Murilo
+      $expr: {
         $eq: [{ $size: { $split: ["$title", " "] } }, 1],
       },
     },
