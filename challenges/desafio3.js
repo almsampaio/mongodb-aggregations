@@ -4,7 +4,6 @@ na pipeline do desafio anterior que atenda a seguinte demanda:
 Retorne esses filmes ordenados por ano e nota IMDB de forma
 decrescente e título por ordem alfabética.  */
 
-
 db.movies.aggregate([
   {
     $match: {
@@ -25,6 +24,6 @@ db.movies.aggregate([
     },
   },
   {
-    $sort: {ano: -1, notaIMDB: -1, titulo: 1}
+    $sort: { ano: -1, notaIMDB: -1, titulo: 1 },
   },
 ]);
