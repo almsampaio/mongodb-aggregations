@@ -4,25 +4,25 @@ db.movies.aggregate([
     $match: {
       countries: "USA",
       "tomatoes.viewer.rating": {
-        $gte: 3
+        $gte: 3,
       },
-       // cast: { $exists: true },
+      // cast: { $exists: true },
       cast: {
-        $in: actors
+        $in: actors,
       },
     },
   },
   {
     $addFields: {
       commonToBoth: {
-        $setIntersection: [actors, "$cast"]
+        $setIntersection: [actors, "$cast"],
       },
     },
   },
   {
     $addFields: {
       num_favs: {
-        $size: "$commonToBoth"
+        $size: "$commonToBoth",
       },
     },
   },
@@ -37,12 +37,12 @@ db.movies.aggregate([
     $project: {
       title: 1,
       _id: 0,
-    }
+    },
   },
   {
-    $skip: 24
+    $skip: 24,
   },
   {
-    $limit: 1
+    $limit: 1,
   },
 ]);
