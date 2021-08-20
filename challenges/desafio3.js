@@ -17,4 +17,4 @@ db.movies.aggregate(
       ano: "$year",
     } },
   ],
-).sort({ year: -1 }, { "imdb.rating": -1 }, { title: 1 });
+).sort({ ano: -1 }, { notaIMDB: -1 }, { titulo: 1 });
