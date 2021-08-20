@@ -1,6 +1,5 @@
 db.trips.aggregate([
-  { $match: { birthYear: { $exists: true } } },
-  { $match: { birthYear: { $ne: "" } } },
+  { $match: { birthYear: { $exists: true, $ne: "" } } },
   { $group: {
     _id: null,
     maiorAnoNascimento: { $max: { $toInt: "$birthYear" } },
@@ -8,3 +7,4 @@ db.trips.aggregate([
   } },
   { $project: { _id: 0 } },
 ]);
+
