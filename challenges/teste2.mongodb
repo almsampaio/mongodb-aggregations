@@ -1,0 +1,11 @@
+use("aggregations")
+
+db.movies.find(
+  {},
+  {
+    _id: 0,
+    tilte: 1,
+    cast: 1,
+    "tomatoes.viewer.rating": 1
+  }
+);
