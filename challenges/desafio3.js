@@ -13,7 +13,6 @@ db.movies.aggregate([
       ],
     },
   },
-
   { $sort:
     {
       year: -1,
@@ -21,6 +20,7 @@ db.movies.aggregate([
       title: 1,
     },
   },
+
   { $project:
     {
       _id: 0,
