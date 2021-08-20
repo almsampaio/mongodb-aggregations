@@ -2,7 +2,7 @@ db.movies.aggregate([
   {
     $project: {
       title_split: { $split: ["$title", " "] },
-      _id: 0
+      _id: 0,
     },
   },
   {
@@ -11,6 +11,6 @@ db.movies.aggregate([
     },
   },
   {
-    $sort: { title_split: 1 }
-  }
+    $sort: { title_split: 1 },
+  },
 ]);
