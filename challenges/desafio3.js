@@ -19,7 +19,7 @@ db.movies.aggregate(
       },
     },
     {
-      $sort: { 
+      $sort: {
         ano: -1,
         notaIMDB: -1,
         titulo: 1,
@@ -27,4 +27,3 @@ db.movies.aggregate(
     },
   ],
 );
-// https://docs.mongodb.com/manual/reference/operator/aggregation/sort/
