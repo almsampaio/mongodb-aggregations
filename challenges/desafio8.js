@@ -9,13 +9,13 @@ db.air_routes.aggregate([
       from: "air_alliances",
       localField: "airline.name",
       foreignField: "airlines",
-      as: "airline_routes",
+      as: "air_routes",
     },
   },
-  { $unwind: "$airline_routes" },
+  { $unwind: "$air_routes" },
   {
     $group: {
-      _id: "$airline_routes.name",
+      _id: "$air_routes.name",
       totalRotas: { $sum: 1 },
     },
   },
