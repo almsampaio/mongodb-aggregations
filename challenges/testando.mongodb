@@ -1,0 +1,268 @@
+use('aggregations');
+db.movies.aggregate([
+  {
+    $match: {
+      "imdb.rating": { $gte: 7 },
+      genres: { $nin: ["Crime", "Horror"] },
+      rated: { $in: ["PG", "G"] },
+      languages: { $all: ["English", "Spanish"] },
+    },
+  },
+]);
+
+db.movies.aggregate([
+  {
+    $match: {
+      "imdb.rating": { $gte: 7 },
+      genres: { $nin: ["Crime", "Horror"] },
+      rated: { $in: ["PG", "G"] },
+      languages: { $all: ["English", "Spanish"] },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      titulo: "$title",
+      avaliado: "$rated",
+      notaIMDB: "$imdb.rating",
+      votosIMDB: "$imdb.votes",
+      ano: "$year",
+    },
+  },
+]);
+
+db.movies.aggregate([
+  {
+    $match: {
+      "imdb.rating": { $gte: 7 },
+      genres: { $nin: ["Crime", "Horror"] },
+      rated: { $in: ["PG", "G"] },
+      languages: { $all: ["English", "Spanish"] },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      titulo: "$title",
+      avaliado: "$rated",
+      notaIMDB: "$imdb.rating",
+      votosIMDB: "$imdb.votes",
+      ano: "$year",
+    },
+  },
+  {
+    $sort: {
+      ano: -1,
+      notaIMDB: -1,
+      titulo: 1
+    }
+  },
+]);
+
+
+db.movies.aggregate([
+  {
+    $project: { _id: 0, title_split: { $split: ["$title", " "] } },
+  },
+  {
+    $match: { title_split: { $size: 1 } },
+  },
+  {
+    $sort: { title_split: 1 },
+  },
+]);
+
+
+const favoriteActors = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey",
+  "George Clooney"];
+
+db.movies.aggregate([
+  {
+    $match: {
+      countries: { $all: ["USA"] },
+      "tomatoes.viewer.rating": { $gte: 3 },
+      cast: { $exists: 1 },
+    },
+  },
+  {
+    $project: {
+      num_favs: { $size: { $setIntersection: ["$cast", favoriteActors] } },
+      _id: 0,
+      title: 1,
+      "tomatoes.viewer.rating": 1,
+    },
+  },
+  { $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 } },
+  { $project: { num_favs: 0, tomatoes: 0 } },
+  { $skip: 24 },
+  { $limit: 1 },
+]);
+
+db.movies.aggregate([
+  {
+    $match: { awards: { $regex: /won [0-9] oscar/i } },
+  },
+  {
+    $group: {
+      _id: null,
+      maior_rating: { $max: "$imdb.rating" },
+      menor_rating: { $min: "$imdb.rating" },
+      media_rating: { $avg: "$imdb.rating" },
+      desvio_padrao: { $stdDevSamp: "$imdb.rating" },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      maior_rating: 1,
+      menor_rating: 1,
+      media_rating: { $round: ["$media_rating", 1] },
+      desvio_padrao: { $round: ["$desvio_padrao", 1] },
+    },
+  },
+]);
+
+db.movies.aggregate([
+  { $match: { languages: { $in: ["English"] } } },
+  { $unwind: "$cast" },
+  {
+    $group: {
+      _id: "$cast",
+      numeroFilmes: { $sum: 1 },
+      mediaIMDB: { $avg: "$imdb.rating" },
+    },
+  },
+  {
+    $project: {
+      numeroFilmes: 1,
+      mediaIMDB: { $round: ["$mediaIMDB", 1] },
+    },
+  },
+  { $sort: { numeroFilmes: -1, _id: -1 } },
+]);
+
+
+db.air_alliances.aggregate([
+  { $unwind: "$airlines" },
+  {
+    $lookup: {
+      from: "air_routes",
+      localField: "airlines",
+      foreignField: "airline.name",
+      as: "routes",
+    },
+  },
+  { $unwind: "$routes" },
+  { $match: { "routes.airplane": { $in: ["747", "380"] } } },
+  { $group: { _id: "$name", totalRotas: { $sum: 1 } } },
+  { $sort: { totalRotas: -1 } },
+  { $limit: 1 },
+]);
+
+db.trips.aggregate([
+  { $match: { birthYear: { $ne: "" } } },
+  {
+    $group: {
+      _id: null,
+      maiorAnoNascimento: { $max: { $toInt: "$birthYear" } },
+      menorAnoNascimento: { $min: { $toInt: "$birthYear" } },
+    },
+  },
+  { $project: { _id: 0 } },
+]);
+
+db.trips.aggregate([
+  {
+    $addFields: {
+      timeDifference: {
+        $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 3600000],
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$usertype",
+      timeAvg: { $avg: "$timeDifference" },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      tipo: "$_id",
+      duracaoMedia: { $round: ["$timeAvg", 2] },
+    },
+  },
+]);
+
+
+db.trips.aggregate([
+  { $addFields: { dayOfWeek: { $dayOfWeek: "$startTime" } } },
+  { $group: { _id: "$dayOfWeek", total: { $sum: 1 } } },
+  { $project: { _id: 0, diaDaSemana: "$_id", total: "$total" } },
+  { $sort: { total: -1 } },
+  { $limit: 1 },
+]);
+
+
+db.trips.aggregate([
+  { $addFields: { dayOfWeek: { $dayOfWeek: "$startTime" } } },
+  {
+    $group: {
+      _id: { diaDaSemana: "$dayOfWeek", nomeEstacao: "$startStationName" },
+      total: { $sum: 1 },
+    },
+  },
+  { $project: { _id: 0, nomeEstacao: "$_id.nomeEstacao", total: "$total" } },
+  { $sort: { total: -1 } },
+  { $limit: 1 },
+]);
+
+
+db.trips.aggregate([
+  {
+    $match: {
+      startTime: { $gte: ISODate("2016-03-10"), $lt: ISODate("2016-03-11") },
+    },
+  },
+  {
+    $addFields: {
+      timeDifference: {
+        $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 60000],
+      },
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      minutesAvg: { $avg: "$timeDifference" },
+    },
+  },
+  { $project: { _id: 0, duracaoMediaEmMinutos: { $ceil: "$minutesAvg" } } },
+]);
+
+
+db.trips.aggregate([
+  {
+    $addFields: {
+      timeDifference: {
+        $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 60000],
+      },
+    },
+  },
+  {
+    $group: { _id: "$bikeid", duracaoMedia: { $avg: "$timeDifference" } },
+  },
+  {
+    $project: {
+      _id: 0,
+      bikeId: "$_id",
+      duracaoMedia: { $ceil: "$duracaoMedia" },
+    },
+  },
+  { $sort: { duracaoMedia: -1 } },
+  { $limit: 5 },
+]);
+
+// db.air_alliances.find()
+// db.air_routes.find()
+// db.trips.find()
