@@ -1,11 +1,12 @@
 const actors = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"];
-db.movies.aggregate([{
+db.movies.aggregate([
+  {
     $match: {
       countries: "USA",
       "tomatoes.viewer.rating": {
         $gte: 3
       },
-      // cast: { $exists: true },
+       // cast: { $exists: true },
       cast: {
         $in: actors
       },
