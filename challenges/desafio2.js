@@ -10,13 +10,12 @@ db.movies.aggregate([{ $match:
     { genres: { $ne: "Horror" } },
     { $or: [{ rated: { $eq: "G" } }, { rated: { $eq: "PG" } }] },
     { $and: [{ languages: { $eq: "English" } }, { languages: { $eq: "Spanish" } }] },
-  ] } },{
+  ] } }, {
   $project: {
     titulo: "$title",
     avaliado: "$rated",
     notaIMDB: "$imdb.rating",
     votosIMDB: "$imdb.votes",
     ano: "$year",
-    _id: 0
-  }}, { $limit: 41 }]);
-  
+    _id: 0,
+  } }, { $limit: 41 }]);
