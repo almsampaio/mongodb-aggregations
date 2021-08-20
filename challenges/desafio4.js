@@ -5,7 +5,7 @@ db.movies.aggregate(
         title_split: {
           $split: ["$title", " "],
         },
-      },  
+      }, 
     },
     {
       $match: {
@@ -25,5 +25,5 @@ db.movies.aggregate(
         _id: 0,
       },
     },
-  ]
+  ],
 );
