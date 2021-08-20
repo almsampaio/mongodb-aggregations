@@ -2,7 +2,7 @@ db.movies.aggregate([
   {
     $match: {
       languages: {
-        $all: ["English"]
+        $all: ["English"],
       },
     },
   },
