@@ -67,4 +67,4 @@ else
   run_evaluate
 fi
 
-scripts/resetdb.sh "$DB_RESTORE_DIR"
+ scripts/resetdb.sh "$DB_RESTORE_DIR"
