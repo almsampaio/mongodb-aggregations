@@ -22,6 +22,6 @@ db.trips.aggregate([
       duracaoMedia: { $ceil: "$tripAverageDuration" },
     },
   },
-  { $limit: 5 },
   { $sort: { duracaoMedia: -1 } },
+  { $limit: 5 },
 ]);
