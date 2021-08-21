@@ -23,3 +23,5 @@ db.trips.aggregate(
     },
   ],
 );
+
+// rodar avaliador novamente
