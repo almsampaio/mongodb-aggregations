@@ -3,28 +3,28 @@ use("aggregations")
 db.movies.aggregate([
   {
     $match: {
-      awards: {
-        $regex: /^Won\s[1-9]\sOscar/
-      },
+      languages: "English"
     },
   },
   {
+    $unwind: "$cast"
+  },
+  {
     $group: {
-      _id: null,
-      maior_rating: {$max: "$imdb.rating"},
-      menor_rating: { $min: "$imdb.rating" },
-      avg: {$avg: "$imdb.rating" },
-      dp: { $stdDevSamp: "$imdb.rating"}
+      _id: "$cast",
+      numeroFilmes: { $sum: 1},
+      media_IMDB: { $avg: "$imdb.rating" }
     }
   },
   {
     $project: {
-      _id: 0,
-      maior_rating: 1,
-      menor_rating: 1,
-      media_rating: { $round : [ "$avg", 1 ] },
-      desvio_padrao: { $round : [ "$dp", 1 ] }
+      _id: 1,
+      numeroFilmes: 1,
+      mediaIMDB: { $round: ["$media_IMDB", 1] },
     }
+  },
+  {
+    $sort: { numeroFilmes: -1, _id: -1}
   }
 ]);
 
