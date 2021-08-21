@@ -2,7 +2,7 @@
 db.air_routes.aggregate([
   {
     $match: {
-      airplane: /^747$|^380/,
+      airplane: /^747$|^380$/,
     },
   },
   {
