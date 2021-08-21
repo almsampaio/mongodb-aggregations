@@ -3,70 +3,14 @@ use("aggregations")
 db.movies.aggregate([
   {
     $match: {
-      cast: {
-        $elemMatch: {
-          $in: [
-            "Sandra Bullock",
-            "Tom Hanks",
-            "Julia Roberts",
-            "Kevin Spacey",
-            "George Clooney"
-          ]
-        }
+      awards: {
+        $regex: /^Won\s[1-9]\sOscar/
       },
-      countries: "USA",
-      "tomatoes.viewer.rating": {$gte: 3}
-    }
-  },
- {
-    $project: {
-      _id: 0,
-      titulo: "$title",
-      elenco: "$cast",
-      avaliacao: "$tomatoes.viewer.rating"
     },
   },
   {
-    $addFields: {
-      favoritActors: [
-            "Sandra Bullock",
-            "Tom Hanks",
-            "Julia Roberts",
-            "Kevin Spacey",
-            "George Clooney"
-      ]
-    }
-  },
-  {
-    $addFields: {
-      intersectionActors: {
-        $setIntersection: ["$elenco", "$favoritActors"]
-      }
-    }
-  },
-  {
-    $addFields: {
-      num_favs: {
-        $size: "$intersectionActors"
-      }
-    }
-  },
-  { 
-    $sort: {
-      num_favs: -1,
-      avaliacao: -1,
-      titulo: -1,
-    }
-  },
-  {
-    $skip: 24 
-  },
-  {
-    $project: {
-      title: "$titulo"
-    }
-  },
-  {
-    $limit: 1
+    $count: "contou"
   }
+  
+  
 ]);
