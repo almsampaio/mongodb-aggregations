@@ -1,4 +1,3 @@
-
 const arr = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"];
 use("aggregations");
 db.movies.aggregate([{ $match: {
