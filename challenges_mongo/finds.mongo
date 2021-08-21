@@ -1,0 +1,4 @@
+// db.movies.find();
+// db.air_routes.find();
+// db.air_alliances.find();
+// db.trips.find();
