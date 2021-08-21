@@ -1,0 +1,26 @@
+db.trips.aggregate([
+  {
+    $group: {
+      _id: "$usertype",
+      duracaoMedia: { $avg: {
+        $subtract: ["$stopTime", "$startTime"]
+      } },
+    },
+  },
+  { $sort: { duracaoMedia: 1 } },
+  {
+    $project: {
+      _id: 0,
+      tipo: "$_id",
+      duracaoMedia: {
+        $round: [{ $divide: ["$duracaoMedia", 3600000] }, 2]
+      },
+    },
+  }
+]);
+
+// conversão das viagens para hora:
+// 1h = 60min
+// 1min = 60s
+// 1min = 1000ms
+// https://stackoverflow.com/questions/41138877/how-to-calculate-timestamp-difference-in-mongodb-in-hours
