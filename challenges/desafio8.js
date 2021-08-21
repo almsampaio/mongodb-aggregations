@@ -2,7 +2,7 @@ db.air_routes.aggregate([
   { $match: { airplane: { $in: ["747", "380"] } } },
   { $lookup: {
     from: "air_alliances", // coleção externa
-    let: { airlineNames: "$airline.name" }, // variavel armazena dado local 
+    let: { airlineNames: "$airline.name" }, // variavel armazena dado local
     pipeline:
       [
         { $unwind: "$airlines" }, // desestrutura nomes das empresas
