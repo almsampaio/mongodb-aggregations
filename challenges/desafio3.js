@@ -1,5 +1,4 @@
 // Desafio 3
-use("aggregations");
 db.movies.aggregate([
   {
     $match: {
@@ -29,9 +28,9 @@ db.movies.aggregate([
   },
   {
     $sort: {
-      ano: 1,
-      notaIMDB: 1,
-      titulo: -1,
+      ano: -1,
+      notaIMDB: -1,
+      titulo: 1,
     },
   },
 ]);
