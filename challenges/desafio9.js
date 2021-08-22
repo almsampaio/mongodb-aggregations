@@ -5,3 +5,25 @@
     * Não considere documentos com valores vazios ("") e em que o campo não existe!
 
 Para este desafio utilize o operador $toInt para converter de string para valor inteiro. */
+
+db.trips.aggregate([
+  {
+    $match: {
+      birthYear: {
+        $ne: "",
+      },
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      maiorAnoNascimento: { $max: { $toInt: "$birthYear" } },
+      menorAnoNascimento: { $min: { $toInt: "$birthYear" } },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
