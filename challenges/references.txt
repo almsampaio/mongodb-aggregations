@@ -1,0 +1,17 @@
+desafio 6:
+https://www.baeldung.com/java-regex-s-splus
+
+https://stackoverflow.com/questions/2841550/what-does-d-mean-in-regular-expression-terms#:~:text=%5Cd%20is%20called%20a%20character,match%201%20or%20more%20digits.
+
+https://www.youtube.com/watch?v=d2uqo6PhdM4
+
+https://en.wikipedia.org/wiki/Regular_expression
+
+https://pt.stackoverflow.com/questions/110701/o-que-significa-o-atalho-s-nas-regex
+
+https://docs.mongodb.com/manual/reference/operator/aggregation/round/
+
+https://docs.mongodb.com/manual/reference/operator/aggregation/stdDevSamp/
+
+<------->
+
