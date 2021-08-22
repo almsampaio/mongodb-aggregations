@@ -27,6 +27,6 @@ db.trips.aggregate([
     $project: {
       _id: 0,
       duracaoMediaEmMinutos: { $ceil: "$tripAvgTime" },
-    }
+    },
   },
 ]);

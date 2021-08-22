@@ -22,7 +22,7 @@ db.trips.aggregate([
       _id: 0,
       bikeId: "$_id",
       duracaoMedia: { $ceil: "$tripAvgTime" },
-    }
+    },
   },
   { $limit: 5 },
 ]);

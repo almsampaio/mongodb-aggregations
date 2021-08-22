@@ -1,4 +1,3 @@
-
 db.air_routes.aggregate([
   {
     $match: {
@@ -9,7 +8,7 @@ db.air_routes.aggregate([
     $group: {
       _id: "$airline.name",
       count: { $sum: 1 },
-    }
+    },
   },
   {
     $lookup: {
@@ -20,18 +19,18 @@ db.air_routes.aggregate([
           $match: {
             $expr: {
               $in: ["$$airline", "$airlines"],
-            }
-          }
+            },
+          },
         },
         {
           $project: {
             _id: 0,
             name: 1,
-          }
+          },
         },
       ],
       as: "test",
-    }
+    },
   },
   {
     $group: {

@@ -7,13 +7,13 @@ db.trips.aggregate([
           1000 * 60 * 60,
         ],
       },
-    }
+    },
   },
   {
     $group: {
       _id: "$usertype",
-      hoursAVG: { $avg: "$totalHours" }
-    }
+      hoursAVG: { $avg: "$totalHours" },
+    },
   },
   {
     $sort: {
