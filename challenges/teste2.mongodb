@@ -4,8 +4,18 @@ db.trips.aggregate([
   {
     $project: {
       _id: 0,
-      /user_type: "$startStationLocation.type",
+     dia_Da_Semana: {
+        $dayOfWeek: "$startTime",
+      },
     }
   },
+  {
+    $match: {
+      dia_Da_Semana: 2
+    }
+  },
+  {
+    $count: "jddb"
+  }
+]);
 
-])

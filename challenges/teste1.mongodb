@@ -4,33 +4,28 @@ db.trips.aggregate([
   {
     $project: {
       _id: 0,
-      user_type: "$usertype",
-      travel_hours: {
-        
-          
-            $divide: [
-              {$subtract: ["$stopTime","$startTime",]},
-              {$multiply: [60, 60, 1000]}
-            ]
-          
-          
-        
-      }
+     dia_Da_Semana: {
+        $dayOfWeek: "$startTime",
+      },
     }
   },
   {
     $group: {
-      _id: "$user_type",
-      duracao_Media: {$avg: "$travel_hours"}
+      _id: "$dia_Da_Semana",
+      tot: { $sum: 1}
     }
   },
   {
     $project: {
-      tipo: "$_id",
       _id: 0,
-      duracaoMedia: {
-        $round: ["$duracao_Media", 2]
-      }
+      diaDaSemana: "$_id",
+      total: "$tot"
     }
+  },
+  {
+    $sort: {total: -1 }
+  },
+  {
+    $limit: 1
   }
-])
+]);
