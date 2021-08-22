@@ -2,22 +2,35 @@ use("aggregations")
 
 db.trips.aggregate([
   {
-    $match: {
-      birthYear: {
-        $ne: ""
+    $project: {
+      _id: 0,
+      user_type: "$usertype",
+      travel_hours: {
+        
+          
+            $divide: [
+              {$subtract: ["$stopTime","$startTime",]},
+              {$multiply: [60, 60, 1000]}
+            ]
+          
+          
+        
       }
     }
   },
- {
+  {
     $group: {
-        _id: null,
-        maiorAnoNascimento: { $max: { $toInt: "$birthYear" }},
-        menorAnoNascimento: {$min: { $toInt: "$birthYear" }},
-      },
+      _id: "$user_type",
+      duracao_Media: {$avg: "$travel_hours"}
+    }
   },
   {
     $project: {
-      _id: 0
+      tipo: "$_id",
+      _id: 0,
+      duracaoMedia: {
+        $round: ["$duracao_Media", 2]
+      }
     }
   }
 ])
