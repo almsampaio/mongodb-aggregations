@@ -24,11 +24,6 @@ db.trips.aggregate([
     },
   },
   {
-    $sort: {
-      count: -1,
-    },
-  },
-  {
     $project: {
       _id: 0,
       duracaoMediaEmMinutos: { $ceil: "$tripAvgTime" },
