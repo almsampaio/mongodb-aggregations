@@ -1,9 +1,18 @@
 // Desafio 12
-use("aggregations");
 db.trips.aggregate([
   {
+    $addFields: {
+      diaDaSemana: { $dayOfWeek: "$startTime" },
+    },
+  },
+  {
+    $match: {
+      diaDaSemana: 5,
+    },
+  },
+  {
     $group: {
-      _id: { $dayOfWeek: "$startTime" },
+      _id: "$startStationName",
       total: { $sum: 1 },
     },
   },
@@ -11,7 +20,7 @@ db.trips.aggregate([
     $project: {
 
       _id: 0,
-      diaDaSemana: "$_id",
+      nomeEstacao: "$_id",
       total: "$total",
     },
   },
