@@ -10,13 +10,13 @@ db.movies.aggregate([
     },
   },
   {
-    $project: {
-      id: 0,
+    $sort: {
       title_split: 1,
     },
   },
   {
-    $sort: {
+    $project: {
+      id: 0,
       title_split: 1,
     },
   },

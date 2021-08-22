@@ -1,0 +1,120 @@
+use("aggregations");
+db.movies.find({});
+
+//desafio1;
+use("aggregations");
+db.movies.aggregate([
+  {
+    $match: {
+      $and: 
+      [
+        { "imdb.rating": { $gte: 7 } },
+        { genres: { $nin: ["Crime", "Horror"] } },
+        { rated: { $in: ["PG", "G"] } },
+        { languages: { $all: [ "English","Spanish"] } },
+      ],
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      count: { $sum: 1 }
+    }
+  },
+]);
+// desafio2
+use("aggregations");
+db.movies.aggregate([
+  {
+    $match: {
+      $and: 
+      [
+        { "imdb.rating": { $gte: 7 } },
+        { genres: { $nin: ["Crime", "Horror"] } },
+        { rated: { $in: ["PG", "G"] } },
+        { languages: { $all: [ "English","Spanish"] } },
+      ],
+    },
+  },
+  {
+    $addFields: {
+      titulo: "$title",
+      avaliado: "$rated",
+      notaIMDB:"$imdb.rating",
+      votosIMDB: "$imdb.votes", 
+      ano: "$year",
+    }
+  },
+  {
+    $project: {
+      título: 1, avaliado: 1, notaIMDB: 1, votosIMDB: 1, ano: 1, _id: 0
+    },
+  },
+]);
+// desafio3
+use("aggregations");
+db.movies.aggregate([
+  {
+    $match: {
+      $and:
+      [
+        { "imdb.rating": { $gte: 7 } },
+        { genres: { $nin: ["Crime", "Horror"] } },
+        { rated: { $in: ["PG", "G"] } },
+        { languages: { $all: ["English","Spanish"] } },
+      ],
+    },
+  },
+  {
+    $addFields: {
+      titulo: "$title",
+      avaliado: "$rated",
+      notaIMDB:"$imdb.rating",
+      votosIMDB: "$imdb.votes", 
+      ano: "$year",
+    }
+  },
+  { 
+    $sort: { 
+      ano: -1,
+      notaIMDB: -1,
+      titulo: 1
+    }
+  },
+  {
+    $project: {
+      titulo: 1, avaliado: 1, notaIMDB: 1, votosIMDB: 1, ano: 1, _id: 0
+    },
+  },
+]);
+// desafio4
+use("aggregations");
+db.movies.aggregate([
+    {
+    $addFields: {
+      title_split: { $split: [ "$title" , " "] },
+
+      },
+    },
+    {
+     $match: {
+        title_split: { $size: 1 },
+      }
+    },
+  { 
+    $sort: { 
+      title: 1
+    }
+  },
+  /*{
+    $group: {
+      _id: null,
+      count: { $sum: 1 }
+    }
+  }*/
+  {
+    $project: {
+     title_split: 1, _id: 0
+    },
+  },
+]);
