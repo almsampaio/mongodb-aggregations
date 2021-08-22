@@ -1,2 +1,8 @@
-db.produtos.updateMany({}, { $set: { criadoPor: "Ronald McDonald" } });
-db.produtos.find({}, { nome: 1, criadoPor: 1, _id: 0 });
+db.movies.aggregate([{
+  $match: {
+    "imdb.rating": { $gte: 7 },
+    genres: { $nin: ["Crime", "Horror"] },
+    rated: { $in: ["PG", "G"] },
+    languages: { $all: ["English", "Spanish"] },
+  },
+}]);
