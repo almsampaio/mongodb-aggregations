@@ -1,16 +1,3 @@
 use("aggregations")
 
-db.movies.aggregate([
-  {
-    $match: {
-      awards: {
-        $regex: /^Won\s[1-9]\sOscar/
-      },
-    },
-  },
-  {
-    $count: "contou"
-  }
-  
-  
-]);
+db.air_alliances.find()
