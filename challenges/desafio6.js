@@ -15,8 +15,8 @@ db.movies.aggregate([
       menor_rating: { $min: "$imdb.rating" },
       media_rating: { $avg: "$imdb.rating" },
       desvio_padrao: { $stdDevSamp: "$imdb.rating" },
-    }, 
-  }, 
+    },
+  },
   {
     $project: {
       _id: 0,
