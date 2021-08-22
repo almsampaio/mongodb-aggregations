@@ -9,15 +9,15 @@ db.movies.aggregate([
     $group: {
       _id: "$cast",
       count: { $sum: 1 },
-      mediaIMDB: { $avg: "$imdb.rating"},
-      },
+      mediaIMDB: { $avg: "$imdb.rating" },
+    },
 
   },
   {
     $project: {
       _id: 1,
-      numeroFilmes:  "$count",
-      mediaIMDB: { $round: ["$mediaIMDB", 1]},
+      numeroFilmes: "$count",
+      mediaIMDB: { $round: ["$mediaIMDB", 1] },
       languages: 1,
     },
   },
@@ -25,6 +25,6 @@ db.movies.aggregate([
     $sort: {
       numeroFilmes: -1,
       _id: -1,
-    }
+    },
   },
 ]);
