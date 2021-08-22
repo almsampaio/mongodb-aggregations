@@ -4,7 +4,7 @@ db.movies.aggregate([
   },
   {
     $match: {
-      countries: { $in: ["USA"] },
+      languages: { $in: [/english/i] },
     },
   },
   {
@@ -29,3 +29,4 @@ db.movies.aggregate([
     },
   },
 ]);
+
