@@ -1,8 +1,5 @@
 const lista = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"];
-/**
- * Consultei o repositório do LeonarDev para resolver essa parte.
- * Link: https://github.com/tryber/sd-09-mongodb-aggregations/tree/leonardev-mongodb-aggregations
- */
+
 db.movies.aggregate([
   { $match: { countries: "USA", "tomatoes.viewer.rating": { $gte: 3 }, cast: { $exists: true } } },
   { $addFields: { actors: { $setIntersection: [lista, "$cast"] } } },
