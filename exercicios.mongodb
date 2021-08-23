@@ -161,3 +161,82 @@ db.movies.aggregate([
   },
 ]);
 
+/* 7-
+-Conte quantos filmes cada um dos atores e atrizes do elenco
+(cast do banco) ja participaram 
+e obtenha uma media do campo imdb.rating para cada um desses
+atores e atrizes
+
+-traga o nome do ator e da atriz
+-numero de filmes que participou
+-media do imdb desses filmes arredondada para uma casa decimal usando $round
+considere somente os membros do elenco de filmes com o idioma english
+exiba a lista em ordem decrescente de documentos pelo numero de
+filmes e nome do ator ou atriz
+
+ESTRATEGIA:
+fazer um $group de cast(n)
+ */
+
+ db.movies.aggregate([
+  {
+    $unwind: "$cast",
+  },
+  {
+    $match: { languages: { $in: ["English"] } },
+  },
+  {
+    $group: {
+      _id: "$cast",
+      count: { $sum: 1 },
+      media: { $avg: "$imdb.rating" },
+    },
+  },
+  {
+    $project: {
+      _id: "$_id",
+      numeroFilmes: "$count",
+      mediaIMDB: { $round: ["$media", 1] },
+    },
+  },
+  { $sort: { numeroFilmes: -1, _id: -1 } },
+]);
+
+/* 8-
+  Trocando de contexto, vamos utilizar nossa outra coleção que
+  contém dados de empresas aéreas, suas rotas, seus
+  voos e parcerias.
+
+  Liste todas as parcerias da coleção air_alliances, que voam rotas
+  com um Boing 747 ou um Airbus A380 , para descobrir qual delas
+  tem o maior número de rotas com esses aviões.
+
+No campo airplane, na coleção air_routes:
+  Boing 747 está abreviado para 747
+  Airbus A380 está abreviado para 380
+
+{ "_id" : <nome_da_alianca>, "totalRotas" : <total_de_rotas> }
+
+  ESTRATEGIA:
+  Parceria se encontra em alliances.
+    -fazer unwind das empresas airlines em alliances
+    -pegar o nome empresa na colecao routes que voam com 747 ou 380
+    -fazer lookup do nome desta empresa 
+  */
+
+  db.air_alliances.aggregate([
+    { $unwind: "$airlines" },
+    { 
+      $lookup: {
+        from: "air_routes",
+        localField: "airlines",
+        foreignField: "airline.name",
+        as: "rotas",
+      },
+    },
+    { $unwind: "$rotas" },
+    { $match: { "rotas.airplane": { $in: ["747", "380"] } } },
+    { $group: { _id: "$name", totalRotas: { $sum: 1 } } },
+    { $sort: { totalRotas: -1 } },
+    { $limit: 1 },
+  ]);
