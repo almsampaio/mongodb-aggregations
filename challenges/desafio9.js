@@ -7,10 +7,11 @@
 // Para este desafio utilize o operador $toInt para converter de string
 // para valor inteiro.
 
-// O resultado da sua query deve ter exatamente o seguinte formato
-// (incluindo a ordem dos campos):
+// Fontes: https://docs.mongodb.com/manual/reference/operator/aggregation/toInt/,
+// https://docs.mongodb.com/manual/reference/operator/aggregation/convert/#mongodb-expression-exp.-convert,
+// https://pt.stackoverflow.com/questions/170863/retornar-o-valor-m%C3%A1ximo-das-somas-da-collection-com-mongodb,
+// https://stackoverflow.com/questions/64575367/mongodb-failed-to-parse-objectid-in-convert-with-no-onerror-value-invalid
 
-// { "maiorAnoNascimento" : <ano>, "menorAnoNascimento" : <ano> }
 db.trips.aggregate([
   {
     $match: {
