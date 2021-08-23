@@ -329,5 +329,34 @@ db.trips.aggregate([
   { $project: { nomeEstacao: "$_id", total: "$count", _id: 0 } },
 ]);
 
+/* 13- Determine a duração média das viagens iniciadas no dia
+10/03/2016, em minutos
+  -Arredonde o resultado para cima.
+  -{ "duracaoMediaEmMinutos" : <duracao_media_em_minutos> }
+*/
+db.trips.aggregate([
+  {
+    $match: {
+      startTime: { 
+        $gte: ISODate("2016-03-10T00:00:00Z"),
+        $lt: ISODate("2016-03-11T00:00:00Z"),
+      },
+    },
+  },
+  {
+    $addFields: {
+      difference: {
+        $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 60000],
+      },
+    },
+  },
+  {
+    $group: { _id: null, count: { $avg: "$difference" } },
+  },
+  {
+    $project: { duracaoMediaEmMinutos: { $ceil: "$count" }, _id: 0 },
+  },
+]);
+
  db.trips.find();
 
