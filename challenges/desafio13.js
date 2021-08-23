@@ -6,9 +6,9 @@ db.trips.aggregate([
     $match: {
       startTime: {
         $gte: ISODate(START_DAY),
-        $lt: ISODate(END_DAY)
-      }
-    }
+        $lt: ISODate(END_DAY),
+      },
+    },
   },
   {
     $group: {
@@ -21,7 +21,7 @@ db.trips.aggregate([
           ],
         },
       },
-    }
+    },
   },
   {
     $project: {
