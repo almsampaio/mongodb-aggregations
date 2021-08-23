@@ -1,7 +1,4 @@
 // use("aggregations");
-// db.trips.find();
-
-// use("aggregations");
 
 db.trips.aggregate([
   { $match: { birthYear: { $exists: 1, $ne: "" } } },
@@ -21,3 +18,11 @@ db.trips.aggregate([
     },
   },
 ]);
+
+// result:
+// [
+//   {
+//     "maiorAnoNascimento": 2000,
+//     "menorAnoNascimento": 1885
+//   }
+// ]
