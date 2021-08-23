@@ -2,40 +2,35 @@ use("aggregations")
 
 db.trips.aggregate([
   {
-    $addFields: {
-      duracaoViage_em_Min: {
+    $project: {
+      _id: 0,
+      user_type: "$usertype",
+      travel_hours: {
+
         $divide: [
           { $subtract: ["$stopTime", "$startTime"] },
-          60000,
+          { $multiply: [60, 60, 1000] },
         ],
+
       },
     },
   },
   {
     $group: {
-      _id: "$bikeid",
+      _id: "$user_type",
+      duracao_Media: { $avg: "$travel_hours" },
+    },
+  },
+  {
+    $project: {
+      tipo: "$_id",
+      _id: 0,
       duracaoMedia: {
-        $avg: "$duracaoViage_em_Min",
+        $round: ["$duracao_Media", 2],
       },
     },
   },
   {
-    $project: {
-      _id: 1,
-      duracaoMediaEmMinutos: { $ceil: "$duracaoMedia" },
-    },
-  },
-  {
-    $sort: { "duracaoMediaEmMinutos": -1}
-  }, 
-  {
-    $limit: 5,
-  },
-  {
-    $project: {
-      _id: 0,
-      bikeId: "$_id",
-      duracaoMedia:  { $ceil:"$duracaoMediaEmMinutos"}
-    }
+    $sort: {duracaoMedia: 1 }
   }
 ]);
