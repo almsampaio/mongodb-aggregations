@@ -10,6 +10,7 @@ db.trips.aggregate([
       total: { $sum: 1 },
     },
   },
+  { $sort: { total: -1 } },
   {
     $project: {
       _id: 0,
@@ -19,3 +20,11 @@ db.trips.aggregate([
   },
   { $limit: 1 },
 ]);
+
+// result:
+// [
+//   {
+//     "diaDaSemana": 5,
+//     "total": 357594
+//   }
+// ]
