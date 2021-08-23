@@ -28,5 +28,16 @@ db.trips.aggregate([
       },
     },
   },
-
 ]);
+
+// result:
+// [
+//   {
+//     "tipo": "Subscriber",
+//     "duracaoMedia": 0.22
+//   },
+//   {
+//     "tipo": "Customer",
+//     "duracaoMedia": 0.71
+//   }
+// ]
