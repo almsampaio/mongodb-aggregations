@@ -35,6 +35,6 @@ db.movies.aggregate([
 
 ]);
 
-// para a concluão deste requisito realizei consulta no
+// para a conclusão deste requisito realizei consulta no
 // repositório do colega
 // viniciusfranca019
