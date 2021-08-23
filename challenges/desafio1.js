@@ -6,5 +6,4 @@ db.movies.aggregate([
   ],
   },
   },
-  { $count: "documentos" },
 ]);
