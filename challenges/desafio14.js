@@ -8,21 +8,21 @@ db.trips.aggregate([
             { $subtract: ["$stopTime", "$startTime"] },
             1000 * 60,
           ],
-        }
-      }
-    }
+        },
+      },
+    },
   },
   {
     $sort: {
-      duracaoMedia: -1
-    }
+      duracaoMedia: -1,
+    },
   },
   {
     $project: {
       _id: 0,
       bikeId: "$_id",
-      duracaoMedia: {$ceil: "$duracaoMedia"}
-    }
+      duracaoMedia: { $ceil: "$duracaoMedia" },
+    },
   },
-  { $limit: 5 }
+  { $limit: 5 },
 ]);
