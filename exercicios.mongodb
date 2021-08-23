@@ -265,3 +265,39 @@ db.trips.aggregate([
   { $project: { _id: 0 } },
 ]);
 
+/* 10- Encontre a duração média de viagens por tipo de usuário.
+  -Exiba o valor em horas com apenas duas casas decimais
+  -Exiba a média de viagens ordenada de forma crescente.
+  { "tipo" : <tipo>, "duracaoMedia" : <duracaoMedia> }
+ */
+
+db.trips.aggregate([
+  {
+    $project: {
+      _id: 0,
+      tipo: "$usertype",
+      duracao: {
+        $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 3600000],
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$tipo",
+      duracaoMedia: { $avg: "$duracao" },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      tipo: "$_id",
+      duracaoMedia: { $round: ["$duracaoMedia", 2] },
+    },
+  },
+  {
+    $sort: { duracaoMedia: 1 },
+  },
+]);
+
+ db.trips.find();
+
