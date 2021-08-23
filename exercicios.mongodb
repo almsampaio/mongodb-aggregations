@@ -312,5 +312,22 @@ db.trips.aggregate([
   { $project: { diaDaSemana: "$_id", total: "$count", _id: 0 } },
 ]);
 
+/* 12- Usando a pipeline anterior que retorna o dia com mais viagens,
+determine qual estação tem o maior número de viagens nesse dia da semana.
+-Exiba apenas o nome da estação e o total de viagens.
+{ "nomeEstacao" : <nome_da_estacao>, "total" : <total_de_viagens> }
+ESTRATEGIA:
+-selecionar apenas objetos que contem o dia da semana com mais viagem
+
+*/
+db.trips.aggregate([
+  { $addFields: { weekDay: { $dayOfWeek: "$startTime" } } },
+  { $match: { weekDay: 5 } },
+  { $group: { _id: "$startStationName", count: { $sum: 1 } } },
+  { $sort: { count: -1 } },
+  { $limit: 1 },
+  { $project: { nomeEstacao: "$_id", total: "$count", _id: 0 } },
+]);
+
  db.trips.find();
 
