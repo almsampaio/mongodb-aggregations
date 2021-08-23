@@ -1,18 +1,18 @@
 db.air_routes.aggregate([
   {
     $match: {
-      airplane: { $in: ['747', '380'] }
-    }
+      airplane: { $in: ["747", "380"] },
+    },
   },
   {
     $group: {
       _id: "$airline.name",
-      somaRotas: { $sum: 1 }
-    }
+      somaRotas: { $sum: 1 },
+    },
   },
   {
     $lookup: {
-      from: 'air_alliances',
+      from: "air_alliances",
       let: { airline: "$_id", totalRotas: "$somaRotas" },
       pipeline: [
         {
@@ -29,8 +29,8 @@ db.air_routes.aggregate([
           },
         },
       ],
-      as: 'airlineRoutes',
-    }
+      as: "airlineRoutes",
+    },
   },
   {
     $group: {
