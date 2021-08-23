@@ -2,33 +2,40 @@ use("aggregations")
 
 db.trips.aggregate([
   {
-    $match: {
-      startTime: { $gte: ISODate("2016-03-10"), $lt: ISODate("2016-03-11") }
-    }
-  },
-  {
     $addFields: {
       duracaoViage_em_Min: {
         $divide: [
-          {$subtract: ["$stopTime", "$startTime"]},
-          60000
-        ]
-      }
-    }
+          { $subtract: ["$stopTime", "$startTime"] },
+          60000,
+        ],
+      },
+    },
   },
   {
     $group: {
-      _id: null,
+      _id: "$bikeid",
       duracaoMedia: {
-        $avg: "$duracaoViage_em_Min"
-      }
-    }
+        $avg: "$duracaoViage_em_Min",
+      },
+    },
+  },
+  {
+    $project: {
+      _id: 1,
+      duracaoMediaEmMinutos: { $ceil: "$duracaoMedia" },
+    },
+  },
+  {
+    $sort: { "duracaoMediaEmMinutos": -1}
+  }, 
+  {
+    $limit: 5,
   },
   {
     $project: {
       _id: 0,
-      duracaoMediaEmMinutos: {$ceil: "$duracaoMedia"}
+      bikeId: "$_id",
+      duracaoMedia:  { $ceil:"$duracaoMediaEmMinutos"}
     }
   }
-])
-
+]);
