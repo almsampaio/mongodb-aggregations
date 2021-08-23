@@ -12,19 +12,19 @@ db.trips.aggregate([
   {
     $group: {
       _id: "$usertype",
-      tripHoursAverage: { $avg: "$userTripDateDifference" }
-    }
+      tripHoursAverage: { $avg: "$userTripDateDifference" },
+    },
   },
   {
     $sort: {
-      tripHoursAverage: 1
-    }
+      tripHoursAverage: 1,
+    },
   },
   {
     $project: {
       _id: 0,
       tipo: "$_id",
       duracaoMedia: { $round: ["$tripHoursAverage", 2] },
-    }
+    },
   },
 ]);
