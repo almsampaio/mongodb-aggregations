@@ -1,3 +1,4 @@
+// Referencia ao PR do Lucas Lara Muniz
 const atoresFavoritos = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"];
 
 db.movies.aggregate([
