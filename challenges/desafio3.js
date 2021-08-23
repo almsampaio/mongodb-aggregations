@@ -14,15 +14,15 @@ db.movies.aggregate([
       _id: 0,
       titulos: "$title",
       avaliado: "$rated",
-      notaIMBD: "$imbd.rating",
-      votosIMBD: "$imbd.votes",
+      notaIMDB: "$imbd.rating",
+      votosIMDB: "$imbd.votes",
       ano: "$year",
     },
   },
   {
     $sort: {
       ano: -1,
-      notaIMBD: -1,
+      notaIMDB: -1,
       titulo: 1,
     },
   },
