@@ -1,4 +1,3 @@
-const HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
 db.trips.aggregate([
   { $group: {
     _id: "$usertype",
@@ -6,7 +5,7 @@ db.trips.aggregate([
       $avg: {
         $divide: [
           { $subtract: ["$stopTime", "$startTime"] },
-          HOUR_IN_MILLISECONDS,
+          3600000,
         ],
       } },
   } },
