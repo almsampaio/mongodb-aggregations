@@ -25,7 +25,8 @@ db.movies.aggregate(
       $match: {
         countries: { $in: ["USA"] },
         "tomatoes.viewer.rating": { $gte: 3 },
-        cast: { $in: favActors }, // cast terá atores q tiverem em favActors
+        cast: { $in: favActors }, // cast utilizado p/ filtrar somente
+        // filmes q tem algum ator favorito no elenco
       },
     },
     {

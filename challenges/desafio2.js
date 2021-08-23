@@ -2,7 +2,7 @@
 // campos title, rated, imdb.rating, imdb.votes e year,
 // modificando seus nomes para titulo, avaliado, notaIMDB,
 // votosIMDB e ano
-// use("commerce");
+// use("aggregations");
 db.movies.aggregate( // 5
   [
     {
