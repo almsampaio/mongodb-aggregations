@@ -1,3 +1,5 @@
+// 7. Vamos nos aprofundar um pouco mais em nossa coleção de filmes.
+
 db.movies.aggregate([
   { $match: { languages: { $eq: "English" } } },
   { $unwind: "$cast" },

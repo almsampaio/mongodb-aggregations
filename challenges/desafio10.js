@@ -1,3 +1,4 @@
+// 10. Encontre a duração média de viagens por tipo de usuário.
 db.trips.aggregate([
   { $group: {
     _id: "$usertype",

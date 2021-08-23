@@ -1,3 +1,6 @@
+// 14. Baseado na duração média das viagens,
+// determine quais são as 5 bicicletas que foram mais utilizadas.
+
 db.trips.aggregate([
   { $group: {
     _id: "$bikeid",

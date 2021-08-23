@@ -1,3 +1,7 @@
+// 8.Liste todas as parcerias da coleção air_alliances, que voam rotas com um Boing 747
+// ou um Airbus A380,
+// para descobrir qual delas tem o maior número de rotas com esses aviões.
+
 db.air_alliances.aggregate([
   { $unwind: "$airlines" },
   { $lookup: { // equivale ao join do SQL

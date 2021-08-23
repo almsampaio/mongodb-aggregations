@@ -1,3 +1,5 @@
+// 11. Determine qual o dia da semana com maior número de viagens iniciadas.
+
 db.trips.aggregate([
   { $addFields: {
     diaDaSemana: { $dayOfWeek: "$startTime" },

@@ -1,3 +1,7 @@
+// 6.Considerando todos os filmes que ganharam o Oscar pelo menos uma vez,
+// calcule o maior valor, menor valor, média e
+// o desvio padrão das avaliações (informação do campo imdb.rating no banco).
+
 db.movies.aggregate([
   { $match: { awards: { $regex: /Won.*Oscar/i } },
   }, { $group: {

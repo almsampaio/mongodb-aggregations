@@ -1,3 +1,5 @@
+// 9. A partir da coleção trips, determine o menor e o maior ano de nascimento.
+
 db.trips.aggregate([
   { $match: { $and: [{ birthYear: { $exists: true } }, { birthYear: { $ne: "" } }] } },
   { $addFields: {
