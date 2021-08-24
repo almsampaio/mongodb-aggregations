@@ -1,6 +1,6 @@
 db.trips.aggregate([
   { $project: {
-    diaDaSemana: { $dayOfWeek: "$startTime" },
+    diaDaSemana: { $dayOfWeek: "$stopTime" },
     endStationName: 1,
     _id: 0,
   } },
