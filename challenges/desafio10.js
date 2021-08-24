@@ -1,3 +1,5 @@
+const oneHour = 3600000;
+
 db.trips.aggregate([
   { $group: {
     _id: "$usertype",
@@ -12,7 +14,7 @@ db.trips.aggregate([
     tipo: "$_id",
     duracaoMedia: {
       $round: [
-        { $divide: ["$contador", 60 * 60 * 1000] }, 2],
+        { $divide: ["$contador", oneHour] }, 2],
     },
     _id: 0,
   } },
