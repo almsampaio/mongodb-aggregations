@@ -1,4 +1,4 @@
-// Referencia ao PR do Lucas Lara Muniz
+// Referencia ao PR do Lucas Lara Muniz, soube da existencia do $setIntersection la
 const atoresFavoritos = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"];
 
 db.movies.aggregate([
