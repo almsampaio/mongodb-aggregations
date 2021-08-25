@@ -10,7 +10,7 @@ db.trips.aggregate([
     },
   },
   {
-    $group:{
+    $group: {
       _id: "$startStationName",
       total: { $sum: 1 },
     },
