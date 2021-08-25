@@ -7,13 +7,13 @@ db.trips.aggregate([
   {
     $group: {
       _id: "$usertype",
-      duracaoMedia: { $avg: "$duracao" },
+      media: { $avg: "$duracao" },
     },
   },
   {
     $project: {
       tipo: "$_id",
-      duracaoMedia: { $round: ["$duracaoMedia", 2] },
+      duracaoMedia: { $round: ["$media", 2] },
       _id: 0,
     },
   },
@@ -24,4 +24,5 @@ db.trips.aggregate([
   },
 ]);
 
+// crio um capo para fazer o calculo da duração da viagem, depois uso esse campo para tirar a media
 // https://stackoverflow.com/questions/41138877/how-to-calculate-timestamp-difference-in-mongodb-in-hours
