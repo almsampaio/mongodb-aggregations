@@ -6,7 +6,7 @@ db.trips.aggregate([
   },
   {
     $group: {
-      _id: "$bikeId",
+      _id: "$bikeid",
       media: { $avg: "$duracao" },
     },
   },
