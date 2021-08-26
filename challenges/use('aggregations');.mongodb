@@ -1,3 +1,5 @@
+use('aggregations');
+
 db.trips.aggregate([
   {
     $addFields: {
@@ -26,3 +28,4 @@ db.trips.aggregate([
     $limit: 5,
   },
 ]);
+
