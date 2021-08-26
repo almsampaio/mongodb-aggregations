@@ -5,19 +5,19 @@ db.air_alliances.aggregate([
       from: "air_routes",
       localField: "airlines",
       foreignField: "airline.name",
-      as: "rotas-B747-A380"
+      as: "rotas-B747-A380",
     },
   },
   { $unwind: "$rotas-B747-A380" },
   { $match:
     {
-      "rotas-B747-A380.airplane": { $in: ["380", "747"] }
+      "rotas-B747-A380.airplane": { $in: ["380", "747"] },
     },
   },
   { $group:
     {
       _id: "$name",
-      totalRotas: { $sum: 1 }
+      totalRotas: { $sum: 1 },
     },
   },
   { $sort: { totalRotas: -1 } },
