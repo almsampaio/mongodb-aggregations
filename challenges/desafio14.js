@@ -1,4 +1,3 @@
-
 db.trips.aggregate([
   {
     $group: {
