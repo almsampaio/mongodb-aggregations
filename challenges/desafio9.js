@@ -14,7 +14,5 @@ db.trips.aggregate([
       menorAnoNascimento: { $min: { $toInt: "$birthYear" } },
     },
   },
-  {
-    $project: { _id: 0 },
-  },
+  { $project: { _id: 0 } },
 ]);
