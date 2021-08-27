@@ -6,9 +6,9 @@ db.trips.aggregate([
     { _id:
       {
         dia: "$numeroDoDia",
-        nomeEstacao: "$startStationName", 
+        nomeEstacao: "$startStationName",
       },
-      numeroViagens: { $sum: 1 },
+    numeroViagens: { $sum: 1 },
     },
   },
   { $project:
