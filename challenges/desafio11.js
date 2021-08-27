@@ -7,6 +7,9 @@
 // 4. Fazer um $sort em total: -1
 // 5. $limit de 1 elemento
 
+// operador $dayOfWeek encontrado no link
+// https://docs.mongodb.com/manual/reference/operator/aggregation/dayOfWeek/
+
 db.trips.aggregate([
   { $addFields: {
     diaDaPartida: {
