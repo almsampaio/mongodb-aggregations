@@ -2,12 +2,12 @@
 /* use("aggregations"); */
 db.movies.aggregate([
   {
-    $project: { _id: 0, title_split: { $split: ["title", " "] } },
-  },
+    $addFields: { title_split: { $split: ["$title", " "] } } },
   {
-    $match: { title_split: { $size: 1 } }, /* verifica e delimita tamanho do array */
+    $match: { title_split: { $size: 1 } },
   },
+  { $sort: { title: 1 } },
   {
-    $sort: { title_split: 1 },
+    $project: { _id: 0, title_split: 1 },
   },
 ]);
