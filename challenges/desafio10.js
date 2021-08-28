@@ -12,4 +12,7 @@ db.trips.aggregate([
       duracaoMedia: { $round: [{ $divide: ["$media", 3600000] }, 2] },
     },
   },
+  {
+    $sort: { duracaoMedia: 1 },
+  },
 ]);
