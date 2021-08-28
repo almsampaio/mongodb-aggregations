@@ -1,7 +1,7 @@
 // Usando a pipeline anterior que retorna o dia com mais viagens,
 // determine qual estação tem o maior número de viagens nesse dia
 // da semana.
-use("aggregtions");
+// use("aggregtions");
 db.trips.aggregate([
   {
     $group: {

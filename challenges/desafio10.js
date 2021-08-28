@@ -2,7 +2,7 @@
 // Exiba o valor em horas com apenas duas casas decimais
 // Exiba a média de viagens ordenada de forma crescente.
 // use('aggregations');
-const H_IN_MS = 1000 * 360;
+const H_IN_MS = 1000 * 3600;
 db.trips.aggregate([
   {
     $group: {
