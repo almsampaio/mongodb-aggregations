@@ -1,3 +1,5 @@
+// Desafio 6
+/* use("aggregations"); */
 db.movies.aggregate([
   {
     $match: { awards: { $regex: /won \d oscar/i } },
