@@ -35,7 +35,7 @@ db.movies.aggregate([
   },
   { $addFields: { num_favs: { $size: { $setIntersection: ["$cast", favActors] } } } },
   { $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 } },
-  { $project: { _id: false, title: true, num_favs: true } },
+  { $project: { _id: false, title: true } },
   { $skip: 24 },
   { $limit: 1 },
 ]);
