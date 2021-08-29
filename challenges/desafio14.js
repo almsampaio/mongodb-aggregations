@@ -14,7 +14,7 @@ db.trips.aggregate([
       duracaoMedia: { $ceil: { $divide: ["$duracaoMedia", 1000 * 60] } },
     },
   }, //
-  { $project: { _id: false, bikeid: "$_id", duracaoMedia: "$duracaoMedia" } },
+  { $project: { _id: false, bikeId: "$_id", duracaoMedia: "$duracaoMedia" } },
   { $sort: { duracaoMedia: -1 } },
   { $limit: 5 },
 ]);
