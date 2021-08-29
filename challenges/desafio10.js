@@ -1,10 +1,10 @@
 db.trips.aggregate([
   {
     $group: {
-      _id: '$usertype',
+      _id: "$usertype",
       averageOfTrip: {
         $avg: {
-          $divide: [{ $subtract: ['$stopTime', '$startTime'] }, 3600000],
+          $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 3600000],
         },
       },
     },
@@ -13,8 +13,8 @@ db.trips.aggregate([
   {
     $project: {
       _id: false,
-      tipo: '$_id',
-      duracaoMedia: { $round: ['$averageOfTrip', 2] },
+      tipo: "$_id",
+      duracaoMedia: { $round: ["$averageOfTrip", 2] },
     },
   },
 ]);
