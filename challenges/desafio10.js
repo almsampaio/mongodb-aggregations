@@ -13,4 +13,5 @@ db.trips.aggregate([
     },
   },
   { $project: { tipo: "$_id", duracaoMedia: { $round: [{ $divide: ["$duracaoMedia", 3600000] }, 2] } } },
+  { $sort: { duracaoMedia: 1 } },
 ]);
