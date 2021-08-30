@@ -13,6 +13,9 @@ db.trips.aggregate([
     },
   },
   {
+    $skip: 1,
+  },
+  {
     $limit: 1,
   },
 ]);
