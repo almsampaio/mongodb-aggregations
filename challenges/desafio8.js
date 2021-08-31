@@ -7,7 +7,7 @@ db.air_routes.aggregate([
     as: "association",
   } },
   { $unwind: "$association" },
-  { $group: { 
+  { $group: {
     _id: "$association.name",
     totalRotas: { $sum: 1 },
   } },
