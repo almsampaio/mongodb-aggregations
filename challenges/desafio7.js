@@ -5,6 +5,9 @@ db.movies.aggregate([
   },
   },
   {
+    $unwind: "$cast",
+  },
+  {
     $group: {
       _id: "$cast",
       mediaIMDB: { $avg: "$imdb.rating" },
