@@ -1,46 +1,26 @@
+const nomes = [
+  "Sandra Bullock",
+  "Tom Hanks",
+  "Julia Roberts",
+  "Kevin Spacey",
+  "George Clooney",
+];
+
 db.movies.aggregate([
   {
-    $match: {
-      $and: [
-        { countries: "USA" },
-        { "tomatoes.viewer.rating": { $gte: 3 } },
-        {
-          cast: {
-            $in: ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"],
-          },
-        },
-      ],
-    },
+    $match: { countries: { $eq: "USA" }, "tomatoes.viewer.rating": { $gte: 3 }, cast: { $exists: true } },
   },
   {
-    $addFields: {
-      num_favs: {
-        $size: {
-          $setIntersection: [
-            "$cast",
-            ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"],
-          ],
-        },
-      },
-    },
+    $addFields: { num_favs: { $size: { $setIntersection: [nomes, "$cast"] } } },
   },
   {
-    $sort: {
-      num_favs: -1,
-      "tomatoes.viewer.rating": -1,
-      title: -1,
-    },
+    $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 },
   },
   {
-    $skip: 24,
+    $project: { _id: 0, title: "$title" },
   },
-  {
-    $limit: 1,
-  },
-  {
-    $project: {
-      _id: 1,
-      title: 0,
-    },
-  },
+  { $skip: 24 },
+  { $limit: 1 },
 ]);
+
+// referencias: https://github.com/tryber/sd-010-a-mongodb-aggregations/pull/110/files
