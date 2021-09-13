@@ -12,7 +12,7 @@ db.air_routes.aggregate(
       localField: "airline.name",
       foreignField: "airlines",
       as: "result",
-    }
+    },
   },
   {
     $unwind: "$result",
@@ -21,12 +21,12 @@ db.air_routes.aggregate(
     $group: {
       _id: "$result.name",
       totalRotas: { $sum: 1 },
-    }
+    },
   },
   {
     $sort: {
       totalRotas: -1,
-    }
+    },
   },
   {
     $limit: 1,
