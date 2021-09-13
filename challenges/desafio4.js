@@ -1,6 +1,3 @@
-use('aggregations');
-db.movies.find();
-
 db.movies.aggregate(
   {
     $project: {
