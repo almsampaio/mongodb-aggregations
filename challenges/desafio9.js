@@ -24,4 +24,3 @@ db.trips.aggregate(
     },
   },
 );
-
