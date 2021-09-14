@@ -1,4 +1,4 @@
-//Solução encontrada com ajuda de Eduardo Costa - Turma 10A
+// Solução encontrada com ajuda de Eduardo Costa - Turma 10A
 db.trips.aggregate(
   {
     $group: {
@@ -24,6 +24,6 @@ db.trips.aggregate(
   {
     $sort: {
       duracaoMedia: 1,
-    }
-  }
+    },
+  },
 );
