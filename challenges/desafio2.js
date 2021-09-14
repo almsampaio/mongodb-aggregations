@@ -18,3 +18,6 @@ db.movies.aggregate([
     },
   },
 ]);
+
+// https://www.tutorialspoint.com/mongodb-equivalent-of-select-field-as-anothername
+// consultei esse link para a sintaxe
