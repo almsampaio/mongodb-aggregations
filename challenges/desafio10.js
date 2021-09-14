@@ -8,7 +8,7 @@ db.trips.aggregate([{
           endDate: "$stopTime",
           unit: "hour" } } } },
 }, { $project: {
-  id: 0,
+  _id: 0,
   tipo: "$_id",
   duracaoMedia: { $round: ["$duracaoMedia", 2] },
 } }, { $sort: { duracaoMedia: 1 } },
