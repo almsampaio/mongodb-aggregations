@@ -1,5 +1,3 @@
-use('aggregations');
-
 db.trips.aggregate(
   {
     $group: {
@@ -7,7 +5,7 @@ db.trips.aggregate(
         nomeEstacao: "$startStationName",
         diaDaSemana: { $dayOfWeek: "$startTime" },
       },
-      total: { $sum: 1 }
+      total: { $sum: 1 },
     },
   },
   {
@@ -19,11 +17,10 @@ db.trips.aggregate(
     $project: {
       nomeEstacao: "$_id.nomeEstacao",
       total: "$total",
-      _id: 0
+      _id: 0,
     },
   },
   {
     $limit: 1,
   },
 );
-
