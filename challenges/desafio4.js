@@ -5,12 +5,12 @@ db.movies.aggregate([
       title_split: {
         $split: ["$title", " "],
       },
-    }
+    },
   },
   {
     $match: {
       title_split: { $size: 1 },
-    }
+    },
   },
   { $sort: { ano: -1, title_split: 1 } },
 ]);
