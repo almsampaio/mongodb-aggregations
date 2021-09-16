@@ -1,4 +1,3 @@
-use("aggregations");
 db.trips.aggregate([
   { $addFields: {
     date: { $dateToString: { format: "%Y-%m-%d", date: "$startTime" } },
