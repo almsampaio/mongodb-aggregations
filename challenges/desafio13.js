@@ -13,6 +13,7 @@ db.trips.aggregate([
           $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 60000],
         },
       },
+
       _id: null,
 
     },
