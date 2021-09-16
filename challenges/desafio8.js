@@ -6,8 +6,8 @@ db.air_routes.aggregate([
     foreignField: "airlines",
     as: "routes",
   } },
-  { $unwind: "$routas" },
-  { $group: { _id: "$airline.name", totalRotas: { $sum: 1 } } },
+  { $unwind: "$routes" },
+  { $group: { _id: "$routes.name", totalRotas: { $sum: 1 } } },
   { $sort: { totalRotas: -1 } },
   { $limit: 1 },
 ]);
