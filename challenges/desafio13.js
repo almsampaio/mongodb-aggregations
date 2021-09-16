@@ -1,10 +1,10 @@
 use("aggregations");
 db.trips.aggregate([
   { $addFields: {
-    date: {$dateToString: { format: "%Y-%m-%d", date: "$startTime" }},
-  }},
+    date: { $dateToString: { format: "%Y-%m-%d", date: "$startTime" } },
+  } },
   { $match: {
-    date: { $in: ["2016-03-10"] }
+    date: { $in: ["2016-03-10"] },
   } },
   { $group: {
     _id: "odeio yyy-mm-dd",
@@ -12,6 +12,6 @@ db.trips.aggregate([
   } },
   { $project: {
     _id: 0,
-    duracaoMediaEmMinutos: { $ceil: "$duracao" }
-  } }
+    duracaoMediaEmMinutos: { $ceil: "$duracao" },
+  } },
 ]);
