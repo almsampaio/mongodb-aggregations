@@ -18,10 +18,10 @@ db.trips.aggregate([
     },
   }, {
     $sort: {
-      duracaoMedia: -1
-    }
+      duracaoMedia: -1,
+    },
   }, {
-    $limit: 5
+    $limit: 5,
   }, {
     $project: {
       _id: 0,
