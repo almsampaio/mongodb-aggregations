@@ -12,19 +12,13 @@ db.movies.aggregate(
     },
     {
       $sort: {
-        titulo: 1,
+        title: 1,
       },
     },
     {
       $project: {
         _id: 0,
         title_split: 1,
-      },
-    },
-    {
-      $group: {
-        _id: null,
-        docs: { $sum: 1 },
       },
     },
   ],
