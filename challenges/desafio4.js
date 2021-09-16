@@ -1,8 +1,8 @@
 db.movies.aggregate([
-  { $match: { "imdb.rating": { $gte: 7 } } },
   { $project: {
     _id: 0,
-    titulo: { $split: ["$title", " "] },
+    title_split: { $split: ["$title", " "] },
   } },
-  { $limit: 1 },
+  { $match: { title_split: { $size: 1 } } },
+  { $sort: { title_split: 1 } },
 ]);
