@@ -9,4 +9,5 @@ db.trips.aggregate([
     total: "$qntViagens",
     _id: 0,
   } },
+  { $sort: { total: -1 } },
 ]);
