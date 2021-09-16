@@ -6,8 +6,6 @@ const actoFav = [
   "George Clooney",
 ];
 db.movies.aggregate([
-  { $project: { _id: 0, title: 1 } },
-  { $skip: 24 },
   { $match: {
     countries: "USA",
     "tomatoes.viewer.rating": { $gte: 3 },
@@ -21,5 +19,7 @@ db.movies.aggregate([
     "tomatoes.viewer.rating": -1,
     title: -1,
   } },
+  { $project: { _id: 0, title: 1 } },
+  { $skip: 24 },
   { $limit: 1 },
 ]);
